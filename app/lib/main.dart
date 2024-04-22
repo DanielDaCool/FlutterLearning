@@ -1,147 +1,86 @@
-import 'dart:ffi';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-const Color backgroundColor = Color.fromARGB(255, 34, 34, 34);
 
 void main() {
-  HomePage.initState();
-  runApp(const HomePage());
+  runApp(const MyApp());
 }
 
-String userName = "";
+String name = "";
 
-int currentPage = 0;
-
-void getPageGoToPage(int pageValue, BuildContext context) {
-  
-  if(pageValue == currentPage) return;
-  switch(pageValue){
-    case 0:
-      
-      Navigator.push(context, MaterialPageRoute(builder: (_) => const HomePage()));
-      break;
-    case 1:
-      Navigator.push(context, MaterialPageRoute(builder: (_) => const secondPage()));
-      break;
-    
-      
-  }
-}
-
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-
-  static void initState() {
-    userName = "";
-  }
-}
-
-class _HomePageState extends State<HomePage> {
-  // This widget is the root of your application.
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    currentPage = 0;
-    return MaterialApp(
-      darkTheme: ThemeData.dark(),
-      home: Builder(builder: (context) {
-        return Scaffold(
-          backgroundColor: backgroundColor,
-          appBar: AppBar(
-            title: Text("Welcome ${(userName.isEmpty) ? "visitor" : userName}"),
-            backgroundColor: Colors.green,
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.pages), label: "Pages")
-            ],
-            onTap: (value) => (getPageGoToPage(value, context)),
-          ),
-          drawer: Drawer(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(20),
-                  alignment: Alignment.center,
-                 child:  TextField(
-                  autocorrect: true,
-                  textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Enter your username',
-                  ),
-                  onSubmitted: (value) {
-                    setState(() {
-                      userName = value;
-                    });
-                  },
-                ),
-                ),
-                
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.search),
-                  label: const Text("search"),
-                ),
-                TextButton(
-                    onPressed: () => setState(() {
-                          userName = "";
-                        }),
-                    child: const Text("Log out")),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => secondPage()));
-                    },
-                    child: Text("go to page 2")),
-              ],
-            ),
-          ),
-        );
-      }),
+    name = "";
+    return const MaterialApp(
+      home: ToDoList(),
     );
   }
 }
 
-// ignore: camel_case_types
-class secondPage extends StatelessWidget {
-  const secondPage({super.key});
+class ToDoList extends StatefulWidget {
+  const ToDoList({super.key});
+
+  @override
+  _ToDoListState createState() => _ToDoListState();
+}
+
+class _ToDoListState extends State<ToDoList> {
+  List<String> todos = [];
+
+  void addToDo(String todo) {
+    todos.add("Task: $todo");
+  }
 
   @override
   Widget build(BuildContext context) {
-    currentPage = 1;
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => const HomePage()));
-                  },
-                  icon: const Icon(Icons.arrow_back)),
-              const Text("Page 2"),
-            ],
-          ),
-        ),
-        backgroundColor: Colors.green,
-        bottomNavigationBar: BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.pages), label: "Pages")
-            ],
-            onTap: (value) => (getPageGoToPage(value, context)),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Hello ' + (name.isNotEmpty ? name : "Visitor")),
       ),
-      
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          CupertinoAlertDialog(
+            title: const Text("Enter new todo"),
+            content: TextField(
+              autocorrect: true,
+              onSubmitted: (value) => addToDo(value),
+            ),
+          );
+        },
+      ),
+      drawer: (name.isNotEmpty)
+          ? Drawer(
+              child: Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.all(50),
+                child: const Text("You have already entered your name"),
+              ),
+            )
+          : Drawer(
+              child: Container(
+                margin: const EdgeInsets.only(top: 40, left: 10, right: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Text("Enter your name here:"),
+                    TextField(
+                      autocorrect: true,
+                      onSubmitted: (value) {
+                        setState(() => name = value);
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return Text((index != 0) ? todos[index] : "no tasks");
+        },
+      ),
     );
   }
 }
