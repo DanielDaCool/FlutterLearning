@@ -1,14 +1,11 @@
-import 'dart:ffi';
 
 import 'package:app/constants/constants.dart';
 import 'package:app/model/todo.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:app/widgets/todoItem.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -190,6 +187,7 @@ class _HomeState extends State<Home> {
 
   void _filter(String enteredKeyword){
     List<Todo> results = [];
+    // ignore: curly_braces_in_flow_control_structures
     if(enteredKeyword.isEmpty) results = todosList;
     else {
       results = todosList.where((item) => item.todoText.toLowerCase().contains(enteredKeyword.toLowerCase())).toList();
