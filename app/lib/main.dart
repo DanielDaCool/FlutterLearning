@@ -6,6 +6,8 @@ void main() {
   runApp(const MyApp());
 }
 
+bool isLogin = false;
+
 String name = "";
 
 class MyApp extends StatelessWidget {
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
     name = "";
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: login(),
+      home: (isLogin) ? Login() : const Home(),
       
     );
   }
