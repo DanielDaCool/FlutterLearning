@@ -1,7 +1,6 @@
 import 'package:app/constants/constants.dart';
 import 'package:app/model/todo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class toDoItem extends StatelessWidget {
   Todo todo;
@@ -12,17 +11,17 @@ class toDoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       child: ListTile(
         onTap: () {
           onTodoChanged(todo);
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         tileColor: Colors.white,
         leading: IconButton(
           onPressed: () => todo.isDone = !todo.isDone,
-          icon: todo.isDone? Icon(Icons.check_box) : Icon(Icons.check_box_outline_blank),
+          icon: todo.isDone? const Icon(Icons.check_box) : const Icon(Icons.check_box_outline_blank),
           color: tdBlue,
         ),
         title: Text(

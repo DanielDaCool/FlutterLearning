@@ -1,15 +1,16 @@
 import 'package:app/constants/constants.dart';
-import 'package:app/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
-  Login({super.key});
+  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  Color textColor = tdBlue;
+  Color buttonColor = Colors.white;
   Container _buildHeader(String text, bool withUnderline) {
     return Container(
       margin: const EdgeInsets.only(top: 50, bottom: 20),
@@ -74,18 +75,18 @@ class _LoginState extends State<Login> {
 
   Container _buildSubmitButton() {
     return Container(
-      margin: const EdgeInsets.only(top: 60),
+      margin: const EdgeInsets.only(top: 50),
       padding: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        boxShadow: const [
-          BoxShadow(
-              blurRadius: 10.0, offset: Offset(2, 2), color: Color(0xFFA7A9AF))
-        ],
       ),
       child: ElevatedButton(
+        
+        style: ButtonStyle(
+            backgroundColor:
+                MaterialStateColor.resolveWith((states) => buttonColor)),
         child:
-            const Text("Submit", style: TextStyle(fontSize: 20, color: tdBlue)),
+           Text("Submit", style: TextStyle(fontSize: 20, color: textColor)),
         onPressed: () {
           Navigator.pop(context);
         },

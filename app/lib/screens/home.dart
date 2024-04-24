@@ -33,13 +33,13 @@ class _HomeState extends State<Home> {
         child: Container(
           alignment: Alignment.topCenter,
           child: Container(
-            margin: EdgeInsets.all(50),
+            margin: const EdgeInsets.all(50),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
                     blurRadius: 10.0,
-                    offset: Offset(2, 2),
+                    offset: const Offset(2, 2),
                     color: Colors.black.withOpacity(0.4)),
               ],
             ),
@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
                    color: tdBlue)),
               onPressed: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => Login()));
+                    context, MaterialPageRoute(builder: (_) => const Login()));
               },
             ),
           ),
@@ -207,9 +207,9 @@ class _HomeState extends State<Home> {
   void _filter(String enteredKeyword) {
     List<Todo> results = [];
     // ignore: curly_braces_in_flow_control_structures
-    if (enteredKeyword.isEmpty)
+    if (enteredKeyword.isEmpty) {
       results = todosList;
-    else {
+    } else {
       results = todosList
           .where((item) => item.todoText
               .toLowerCase()
