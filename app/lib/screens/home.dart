@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget searchBox() {
-    //need to find way to delete text from textfield
+    //need to find way to delete text from textfiel
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(

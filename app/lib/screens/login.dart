@@ -1,4 +1,5 @@
 import 'package:app/constants/constants.dart';
+import 'package:app/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -88,7 +89,7 @@ class _LoginState extends State<Login> {
         child:
            Text("Submit", style: TextStyle(fontSize: 20, color: textColor)),
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.push(context, MaterialPageRoute(builder: (_) => const Home()));
         },
       ),
     );
