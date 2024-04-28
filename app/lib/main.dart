@@ -1,24 +1,29 @@
-import 'package:app/screens/home.dart';
+import '/screens/home.dart';
 import 'package:flutter/material.dart';
-import 'package:app/screens/login.dart';
+import '/screens/login.dart';
+import '/Global.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-bool isLogin = false;
 
 String name = "";
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
     name = "";
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: (isLogin) ? const Login() : const Home(),
+      home: Login(),
       
     );
   }

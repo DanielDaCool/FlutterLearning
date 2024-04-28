@@ -1,4 +1,5 @@
-import 'package:app/constants/constants.dart';
+import 'package:app/Global.dart';
+import 'package:app/constants/colorConstants.dart';
 import 'package:app/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -12,13 +13,13 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   Color textColor = tdBlue;
   Color buttonColor = Colors.white;
-  Container _buildHeader(String text, bool withUnderline) {
+  Container _buildHeader(String text, bool withUnderline, double fontSize) {
     return Container(
       margin: const EdgeInsets.only(top: 50, bottom: 20),
       child: Text(
         text,
         style: TextStyle(
-            fontSize: 30,
+            fontSize: fontSize,
             fontWeight: FontWeight.w500,
             decoration:
                 withUnderline ? TextDecoration.underline : TextDecoration.none),
@@ -26,7 +27,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Container _buildInput(String hintText) {
+  Container _buildInput(String hintText, user userType) {
     return Container(
       width: 300,
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -44,6 +45,14 @@ class _LoginState extends State<Login> {
             color: tdBlue,
           ),
         ),
+        onSubmitted: (value) {
+          
+          if (userType == user.USERNAME) {
+            Global.username = value;
+          } else {
+            Global.password = value;
+          }
+        },
       ),
     );
   }
@@ -56,10 +65,10 @@ class _LoginState extends State<Login> {
       body: Center(
         child: Column(
           children: [
-            _buildHeader("Username:", false),
-            _buildInput("Enter your username"),
-            _buildHeader("Password:", false),
-            _buildInput("Enter your password"),
+            _buildHeader("Username:", false, 30),
+            _buildInput("Enter your username", user.USERNAME),
+            _buildHeader("Password:", false, 30),
+            _buildInput("Enter your password", user.PASSWORD),
             _buildSubmitButton(),
           ],
         ),
@@ -82,14 +91,14 @@ class _LoginState extends State<Login> {
         borderRadius: BorderRadius.circular(30),
       ),
       child: ElevatedButton(
-        
         style: ButtonStyle(
             backgroundColor:
                 MaterialStateColor.resolveWith((states) => buttonColor)),
-        child:
-           Text("Submit", style: TextStyle(fontSize: 20, color: textColor)),
+        child: Text("Submit", style: TextStyle(fontSize: 20, color: textColor)),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => const Home()));
+          Global.setLogin(true);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => const Home()));
         },
       ),
     );

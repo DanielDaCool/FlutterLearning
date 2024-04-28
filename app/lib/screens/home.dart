@@ -1,4 +1,5 @@
-import 'package:app/constants/constants.dart';
+import 'package:app/Global.dart';
+import 'package:app/constants/colorConstants.dart';
 import 'package:app/model/todo.dart';
 import 'package:app/screens/login.dart';
 import 'package:flutter/material.dart';
@@ -45,9 +46,7 @@ class _HomeState extends State<Home> {
             ),
             child: ElevatedButton(
               child: const Text("Login",
-                  style: TextStyle(
-                  fontSize: 20,
-                   color: tdBlue)),
+                  style: TextStyle(fontSize: 20, color: tdBlue)),
               onPressed: () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (_) => const Login()));
@@ -102,7 +101,7 @@ class _HomeState extends State<Home> {
   }
 
   AppBar buildAppBar() {
-    return AppBar(backgroundColor: bgColor, title: const Text("Home screen"));
+    return AppBar(backgroundColor: bgColor, title: Text("Hello ${Global.username.isNotEmpty ? Global.username : "Guest"}"));
   }
 
   Expanded _buildTodoList() {
@@ -161,25 +160,31 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 20, right: 20),
-            child: ElevatedButton(
-              onPressed: () {
-                _addTodoItem(currentTodo);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: tdBlue,
-                padding: const EdgeInsets.all(13),
-                elevation: 10,
-              ),
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 25,
-              ),
+          _buildIconButton(
+            const Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 25,
             ),
-          )
+          ),
         ],
+      ),
+    );
+  }
+
+  Container _buildIconButton(Icon icon) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20, right: 20),
+      child: ElevatedButton(
+        onPressed: () {
+          _addTodoItem(currentTodo);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: tdBlue,
+          padding: const EdgeInsets.all(13),
+          elevation: 10,
+        ),
+        child: icon,
       ),
     );
   }
