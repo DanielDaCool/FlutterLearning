@@ -101,6 +101,7 @@ class _HomeState extends State<Home> {
   }
 
   AppBar buildAppBar() {
+    print(Global.username);
     return AppBar(backgroundColor: bgColor, title: Text("Hello ${Global.username.isNotEmpty ? Global.username : "Guest"}"));
   }
 

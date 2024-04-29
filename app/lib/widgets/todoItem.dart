@@ -1,4 +1,4 @@
-import 'package:app/constants/constants.dart';
+import '/constants/colorConstants.dart';
 import 'package:app/model/todo.dart';
 import 'package:flutter/material.dart';
 

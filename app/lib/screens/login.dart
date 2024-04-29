@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
             color: tdBlue,
           ),
         ),
-        onSubmitted: (value) {
+        onChanged: (value) {
           
           if (userType == user.USERNAME) {
             Global.username = value;
